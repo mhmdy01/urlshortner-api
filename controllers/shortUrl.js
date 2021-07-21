@@ -26,7 +26,7 @@ const extractURLToShorten = async (req, res, next) => {
 };
 
 const createShortURL = (req, res, next) => {
-  console.log("Short URL: ", helper.createShortUrl());
+  console.log("Short URL: ", helper.createShortUrl(15));
   const shortURLRecord = new ShortURL(req.urlToShorten);
   shortURLsDB.push(shortURLRecord);
   delete shortURLRecord.id;

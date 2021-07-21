@@ -34,6 +34,6 @@ app.get(
 app.use(middleware.unknownEndpointHandler);
 app.use(middleware.errorHandler);
 
-console.log("Short URL: ", helper.createShortUrl());
+console.log("Short URL: ", helper.createShortUrl(15));
 
 module.exports = app;
