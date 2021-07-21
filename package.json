@@ -4,7 +4,7 @@
   "description": "A simple RESTful API for shortening URLs",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose --runInBand --detectOpenHandles",
+    "test": "jest --verbose --runInBand",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
