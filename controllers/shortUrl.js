@@ -7,8 +7,9 @@ const helper = require("../utils/helper");
 // is_web (uses http)
 // is_real (can be visited.. ie. dns lookup-ed)
 const extractURLToShorten = async (req, res, next) => {
+  console.log("BODY:", req.body);
   const { url: urlToShorten } = req.body;
-
+  console.log("URL:", urlToShorten);
   // is_legal
   const urlToShortenObj = new URL(urlToShorten);
 
