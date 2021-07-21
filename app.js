@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const middleware = require("./utils/middleware");
 const shortURLController = require("./controllers/shortUrl");
 const originalURLController = require("./controllers/originalUrl");
+const helper = require("./utils/helper");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,5 +33,7 @@ app.get(
 
 app.use(middleware.unknownEndpointHandler);
 app.use(middleware.errorHandler);
+
+console.log("Short URL: ", helper.createShortUrl());
 
 module.exports = app;

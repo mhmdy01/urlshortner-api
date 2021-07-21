@@ -1,5 +1,6 @@
 const dnsPromises = require("dns").promises;
 const { shortURLsDB, ShortURL } = require("../models/shortUrl");
+const helper = require("../utils/helper");
 
 // validation criteria for urlToShorten?
 // is_legal (can be parsed)
@@ -25,6 +26,7 @@ const extractURLToShorten = async (req, res, next) => {
 };
 
 const createShortURL = (req, res, next) => {
+  console.log("Short URL: ", helper.createShortUrl());
   const shortURLRecord = new ShortURL(req.urlToShorten);
   shortURLsDB.push(shortURLRecord);
   delete shortURLRecord.id;
