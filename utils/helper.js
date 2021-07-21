@@ -62,9 +62,9 @@ const charac = [
   "8",
   "9",
 ];
-const createShortUrl = () => {
+const createShortUrl = (url_len) => {
   let shortUrl = "";
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < url_len; i++) {
     const index = Math.floor(Math.random() * 62);
     shortUrl = shortUrl.concat(charac[index]);
   }
