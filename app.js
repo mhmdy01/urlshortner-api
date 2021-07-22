@@ -8,6 +8,7 @@ const shortURLController = require("./controllers/shortUrl");
 const originalURLController = require("./controllers/originalUrl");
 
 const app = express();
+app.use(express.static("build"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(morgan("dev"));

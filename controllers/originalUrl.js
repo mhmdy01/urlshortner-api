@@ -8,7 +8,7 @@ const extractShortURL = (req, res, next) => {
 
 const lookupOriginalURL = (req, res, next) => {
   const originalURLRecord = shortURLsDB.find(
-    (record) => record.short_url == req.shortURL
+    (record) => record.short_url === req.shortURL
   );
   req.originalURL = !originalURLRecord ? null : originalURLRecord.original_url;
   next();
