@@ -32,6 +32,7 @@ const createShortURL = async (req, res, next) => {
   shortURLsDB.push(shortURLRecord);
   delete shortURLRecord.id;
   req.shortURLRecord = shortURLRecord;
+  // I am not sure if this is who you execute this logic so please check it and make the proper changes
   const shortUrl = new ShortUrl({
     short_url: helper.createShortUrl(15),
     original_url: req.urlToShorten,
