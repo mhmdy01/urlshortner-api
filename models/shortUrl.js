@@ -1,10 +1,10 @@
 let globalId = 0;
 
 class ShortURL {
-  constructor(originalURL) {
+  constructor(originalUrl, shortUrl) {
     this.id = String(++globalId);
-    this.short_url = this.id;
-    this.original_url = originalURL;
+    this.short_url = shortUrl;
+    this.original_url = originalUrl;
   }
 }
 

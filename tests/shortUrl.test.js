@@ -17,11 +17,13 @@ describe("shorten url", () => {
       .set("content-type", "application/x-www-form-urlencoded")
       .expect(200)
       .expect("content-type", /application\/json/);
+    // console.log(res.body);
 
-    const shortURL = res.body;
-    expect(shortURL.short_url).toBeDefined();
-    expect(shortURL.original_url).toBeDefined();
-    expect(shortURL.original_url).toBe(urlToShorten);
+    const { short_url, original_url } = res.body;
+    expect(short_url).toBeDefined();
+    expect(short_url).toHaveLength(7);
+    expect(original_url).toBeDefined();
+    expect(original_url).toBe(urlToShorten);
   });
   test("when: is_legal, is_web, not_real > 400, invalid host", async () => {
     const urlToShorten = "http://google.jp.co";
