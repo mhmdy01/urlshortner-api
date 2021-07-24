@@ -24,4 +24,3 @@
 ## TODO
 
 - use a DB (instead of in-memory array)
-- generate actual random shorturls (instead of using only the ID)
