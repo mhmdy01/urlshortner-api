@@ -4,9 +4,9 @@
   "description": "A simple RESTful API for shortening URLs",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose --runInBand",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js"
   },
   "keywords": [
     "URL",
@@ -19,9 +19,11 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "mongoose": "^5.13.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {

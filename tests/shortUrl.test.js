@@ -1,8 +1,14 @@
+const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app");
+const ShortUrl = require("../models/shortUrl");
 
 const api = supertest(app);
 const API_URL = "/api/shorturl/shorten";
+
+beforeEach(async () => {
+  await ShortUrl.deleteMany({});
+});
 
 // validation criteria for urlToShorten?
 // is_legal (can be parsed)
@@ -61,4 +67,8 @@ describe("shorten url", () => {
     expect(res.body.error).toBeDefined();
     expect(res.body.error).toBe("Invalid URL");
   });
+});
+
+afterAll(() => {
+  mongoose.connection.close();
 });

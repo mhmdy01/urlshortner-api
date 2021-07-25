@@ -1,5 +1,5 @@
 const dnsPromises = require("dns").promises;
-const { shortURLsDB, ShortURL } = require("../models/shortUrl");
+const ShortUrl = require("../models/shortUrl");
 const { generateRandomStr } = require("../utils/helpers");
 
 // validation criteria for urlToShorten?
@@ -28,17 +28,19 @@ const extractURLToShorten = async (req, res, next) => {
 // TODO/decisions/generate-random-shorturl: max_len, allowed chars?
 // max_len: 7
 // allowed_chars: letters (both cases), digits
-const createShortURL = (req, res, next) => {
-  const shortUrl = generateRandomStr(7);
-  const shortURLRecord = new ShortURL(req.urlToShorten, shortUrl);
-  shortURLsDB.push(shortURLRecord);
-  delete shortURLRecord.id;
-  req.shortURLRecord = shortURLRecord;
+const createShortURL = async (req, res, next) => {
+  const shortUrlToAdd = {
+    short_url: generateRandomStr(7),
+    original_url: req.urlToShorten,
+  };
+  const shortUrlDoc = new ShortUrl(shortUrlToAdd);
+  const savedShortUrl = await shortUrlDoc.save();
+  req.savedShortUrl = savedShortUrl;
   next();
 };
 
 const sendShortURL = (req, res, next) => {
-  res.json(req.shortURLRecord);
+  res.json(req.savedShortUrl);
 };
 
 module.exports = {

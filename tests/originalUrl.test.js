@@ -1,5 +1,8 @@
+const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app");
+const ShortUrl = require("../models/shortUrl");
+const { generateRandomStr } = require("../utils/helpers");
 
 const api = supertest(app);
 const API_URL = "/api/shorturl/lookup";
@@ -9,11 +12,14 @@ let shortUrlFromDb = "";
 // to lookup a short url we first need to create one
 // ie. call the shorten endpoint first
 beforeEach(async () => {
-  const res = await api
-    .post("/api/shorturl/shorten")
-    .send(`url=${urlToShorten}`)
-    .set("content-type", "application/x-www-form-urlencoded");
-  shortUrlFromDb = res.body.short_url;
+  await ShortUrl.deleteMany({});
+  const shortUrlToAdd = {
+    short_url: generateRandomStr(7),
+    original_url: urlToShorten,
+  };
+  const shortUrlDoc = new ShortUrl(shortUrlToAdd);
+  const savedShortUrl = await shortUrlDoc.save();
+  shortUrlFromDb = savedShortUrl.short_url;
 });
 
 describe("lookup shorturl", () => {
@@ -29,4 +35,8 @@ describe("lookup shorturl", () => {
     const res = await api.get(`${API_URL}/${shortUrlToLookup}`).expect(404);
     expect(res.body.error).toContain("No short URL found");
   });
+});
+
+afterAll(() => {
+  mongoose.connection.close();
 });

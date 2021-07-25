@@ -1,13 +1,15 @@
-let globalId = 0;
+const mongoose = require("mongoose");
 
-class ShortURL {
-  constructor(originalUrl, shortUrl) {
-    this.id = String(++globalId);
-    this.short_url = shortUrl;
-    this.original_url = originalUrl;
-  }
-}
+const shortUrlSchema = new mongoose.Schema({
+  short_url: { type: String, required: true },
+  original_url: { type: String, required: true },
+});
+shortUrlSchema.set("toJSON", {
+  transform: (doc, ret) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+  },
+});
 
-const shortURLsDB = [];
-
-module.exports = { ShortURL, shortURLsDB };
+module.exports = mongoose.model("ShortUrl", shortUrlSchema);

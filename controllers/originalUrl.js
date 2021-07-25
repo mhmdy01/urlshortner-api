@@ -1,4 +1,4 @@
-const { shortURLsDB } = require("../models/shortUrl");
+const ShortUrl = require("../models/shortUrl");
 
 const extractShortURL = (req, res, next) => {
   const { short_url } = req.params;
@@ -6,13 +6,12 @@ const extractShortURL = (req, res, next) => {
   next();
 };
 
-const lookupOriginalURL = (req, res, next) => {
-  const originalURLRecord = shortURLsDB.find(
-    (record) => record.short_url == req.shortURL
-  );
-  req.originalURL = !originalURLRecord ? null : originalURLRecord.original_url;
+const lookupOriginalURL = async (req, res, next) => {
+  const shortUrlFromDb = await ShortUrl.findOne({ short_url: req.shortURL });
+  req.originalURL = !shortUrlFromDb ? null : shortUrlFromDb.original_url;
   next();
 };
+
 const sendOriginalURL = (req, res, next) => {
   if (!req.originalURL) {
     return res
