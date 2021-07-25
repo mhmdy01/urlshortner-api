@@ -7,8 +7,7 @@ const mongoose = require("mongoose");
 const middleware = require("./utils/middleware");
 const config = require("./utils/config");
 const logger = require("./utils/logger");
-const shortURLController = require("./controllers/shortUrl");
-const originalURLController = require("./controllers/originalUrl");
+const shortUrlsRouter = require("./controllers/shortUrls");
 
 mongoose
   .connect(config.DB_URL, {
@@ -32,18 +31,7 @@ app.use(morgan("dev"));
 // eg: app.route("/api/shorturl/:short_url?")
 // vs
 // separate routes > app.get(route), app.post(route)
-app.post(
-  "/api/shorturl/shorten",
-  shortURLController.extractURLToShorten,
-  shortURLController.createShortURL,
-  shortURLController.sendShortURL
-);
-app.get(
-  "/api/shorturl/lookup/:short_url",
-  originalURLController.extractShortURL,
-  originalURLController.lookupOriginalURL,
-  originalURLController.sendOriginalURL
-);
+app.use("/api/shorturls", shortUrlsRouter);
 
 app.use(middleware.unknownEndpointHandler);
 app.use(middleware.errorHandler);
