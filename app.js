@@ -1,7 +1,6 @@
 require("express-async-errors");
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const middleware = require("./utils/middleware");
@@ -22,8 +21,8 @@ mongoose
   });
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.json());
 app.use(morgan("dev"));
 
 // TODO/routing: how good is each method

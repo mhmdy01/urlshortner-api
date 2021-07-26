@@ -29,11 +29,12 @@ beforeEach(async () => {
 // is_real (can be visited.. ie. dns lookup-ed)
 describe("POST /api/shorturls", () => {
   test("when: is_legal, is_web, is_real > 200, shorturl", async () => {
-    const urlToShorten = validUrlToShorten;
+    const urlToShorten = {
+      url: validUrlToShorten,
+    };
     const res = await api
       .post(API_URL)
-      .send(`url=${urlToShorten}`)
-      .set("content-type", "application/x-www-form-urlencoded")
+      .send(urlToShorten)
       .expect(200)
       .expect("content-type", /application\/json/);
     // console.log(res.body);
@@ -45,11 +46,12 @@ describe("POST /api/shorturls", () => {
     expect(original_url).toBe(validUrlToShorten);
   });
   test("when: is_legal, is_web, not_real > 400, invalid host", async () => {
-    const urlToShorten = "http://google.jp.co";
+    const urlToShorten = {
+      url: "http://google.jp.co",
+    };
     const res = await api
       .post(API_URL)
-      .send(`url=${urlToShorten}`)
-      .set("content-type", "application/x-www-form-urlencoded")
+      .send(urlToShorten)
       .expect(400)
       .expect("content-type", /application\/json/);
 
@@ -57,11 +59,12 @@ describe("POST /api/shorturls", () => {
     expect(res.body.error).toBe("Invalid Hostname");
   });
   test("when: is_legal, not_web > 400, invalid url", async () => {
-    const urlToShorten = "ftp://john-doe.com";
+    const urlToShorten = {
+      url: "ftp://john-doe.com",
+    };
     const res = await api
       .post(API_URL)
-      .send(`url=${urlToShorten}`)
-      .set("content-type", "application/x-www-form-urlencoded")
+      .send(urlToShorten)
       .expect(400)
       .expect("content-type", /application\/json/);
 
@@ -69,11 +72,12 @@ describe("POST /api/shorturls", () => {
     expect(res.body.error).toBe("Invalid URL");
   });
   test("when: not_legal > 400, invalid url", async () => {
-    const urlToShorten = "some-bad-url";
+    const urlToShorten = {
+      url: "some-bad-url",
+    };
     const res = await api
       .post(API_URL)
-      .send(`url=${urlToShorten}`)
-      .set("content-type", "application/x-www-form-urlencoded")
+      .send(urlToShorten)
       .expect(400)
       .expect("content-type", /application\/json/);
 
