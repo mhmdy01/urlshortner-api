@@ -1,12 +1,34 @@
 {
   "name": "urlshortner",
   "version": "1.0.0",
+  "author": "mhmdy01",
+  "license": "ISC",
   "description": "A simple RESTful API for shortening URLs",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
-    "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=development nodemon index.js"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest --verbose --runInBand",
+    "production": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "keywords": [
     "URL",
@@ -14,19 +36,28 @@
     "REST",
     "API"
   ],
-  "author": "mhmdy01",
-  "license": "ISC",
   "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "babel-jest": "^26.6.0",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^5.0.2",
     "cors": "^2.8.5",
-    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "mongoose": "^5.13.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0-beta.4",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
   },
   "devDependencies": {
-    "jest": "^27.0.6",
+    "jest": "^26.6.0",
     "nodemon": "^2.0.12",
     "supertest": "^6.1.3"
   }

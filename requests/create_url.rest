@@ -1,0 +1,6 @@
+POST https://urlshortner-api.mhmdy01.repl.co/api/shorturls
+Content-Type: application/json
+
+{
+  "url": "http://google.jp.co"
+} 

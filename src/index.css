@@ -1,0 +1,63 @@
+.main {
+  padding: 20px;
+}
+.header {
+  text-align: center;
+  padding: 20px;
+  color: indianred;
+  animation: hAnim 2s;
+  background-color: cyan;
+  border-bottom: 5px solid indigo;
+  border-radius: 25px;
+}
+
+@keyframes hAnim {
+  from {
+    opacity: 0.1;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.btn1,
+.btn2 {
+  border: 1px solid indigo;
+  width: 150px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+  /* background-color: gray; */
+  color: black;
+  font-size: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.8s all linear;
+}
+
+.btn1:hover,
+.btn2:hover {
+  transition: 0.4s all ease-in-out;
+  background-color: cyan;
+  color: black;
+}
+
+.btn1::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #3498db;
+  z-index: -1;
+  transition: 0.8s all linear;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
