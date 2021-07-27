@@ -7,6 +7,8 @@ shortUrlsRouter.post("/", async (req, res, next) => {
   // extract url to shorten
   const { url: urlToShorten } = req.body;
 
+  // console.log({ urlToShorten });
+
   // validation criteria for urlToShorten?
   // is_legal, is_web, is_real
 
@@ -37,11 +39,15 @@ shortUrlsRouter.post("/", async (req, res, next) => {
 
   // send
   res.json(savedShortUrl);
+
+  // res.status(201).send({ message: "you got it" });
 });
 
 shortUrlsRouter.get("/:short_url", async (req, res, next) => {
   // extract shorturl
   const { short_url } = req.params;
+
+  console.log({ short_url });
 
   // lookup @db
   const shortUrlFromDb = await ShortUrl.findOne({ short_url });
@@ -53,6 +59,8 @@ shortUrlsRouter.get("/:short_url", async (req, res, next) => {
       .json({ error: "No short URL found for the given input" });
   }
   res.status(302).header("location", shortUrlFromDb.original_url).end();
+
+  // res.status(201).send({ message: "you got it" });
 });
 
 module.exports = shortUrlsRouter;
